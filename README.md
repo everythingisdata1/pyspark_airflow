@@ -74,10 +74,9 @@ Airflow DAG definition for orchestration and dependency management
 16. # PySpark Job Structure
     
 
-    minikube service airflow-webserver -n airflow --url
-    minikube mount D:\pySaprk\airflow-data:/mnt/airflow-data
+    minikube service airflow-ap-server -n airflow --url
+    minikube mount D:\pySaprk\airflow-data\dags:/mnt/airflow --uid=50000 --gid=50000
     kubectl create namespace airflow
-    minikube mount D:\airflow:/mnt/airflow --uid=50000 --gid=50000
 
 # List of DAGS
     kubectl exec -n airflow deploy/airflow-dag-processor -- ls /opt/airflow/dags
