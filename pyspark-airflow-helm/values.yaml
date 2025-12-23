@@ -4,6 +4,31 @@ airflow:
   image:
     repository: apache/airflow
     tag: 3.1.5
+dags:
+  persistence:
+    enabled: true
+    existingClaim: airflow-dags-pvc
+    mountPath: /opt/airflow/dags
+
+logs:
+  persistence:
+    enabled: true
+    existingClaim: airflow-logs-pvc
+    mountPath: /opt/airflow/logs
+
+extraVolumes:
+  - name: airflow-config
+    persistentVolumeClaim:
+      claimName: airflow-config-pvc
+  - name: airflow-plugins
+    persistentVolumeClaim:
+      claimName: airflow-plugins-pvc
+
+extraVolumeMounts:
+  - name: airflow-config
+    mountPath: /opt/airflow/config
+  - name: airflow-plugins
+    mountPath: /opt/airflow/plugins
 #
 #postgresql:
 #  enabled: true

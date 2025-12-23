@@ -18,6 +18,8 @@ spec:
         app: airflow-api-server
         component: apiserver
     spec:
+      volumes:
+        {{- include "airflow.dags.volume" . | nindent 8 }}
       securityContext:
         fsGroup: 50000   # REQUIRED for Airflow file permissions
 
@@ -33,6 +35,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: airflow-config
+          volumeMounts:
+                  {{- include "airflow.dags.volumeMount" . | nindent 12 }}
 
           livenessProbe:
             httpGet:

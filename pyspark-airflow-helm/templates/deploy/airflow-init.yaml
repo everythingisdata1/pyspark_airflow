@@ -9,6 +9,7 @@ spec:
     spec:
       restartPolicy: OnFailure
       securityContext:
+        runAsUser: 50000
         fsGroup: 50000
       containers:
         - name: airflow-db-init

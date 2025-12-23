@@ -77,3 +77,7 @@ Airflow DAG definition for orchestration and dependency management
     minikube service airflow-webserver -n airflow --url
     minikube mount D:\pySaprk\airflow-data:/mnt/airflow-data
     kubectl create namespace airflow
+    minikube mount D:\airflow:/mnt/airflow --uid=50000 --gid=50000
+
+# List of DAGS
+    kubectl exec -n airflow deploy/airflow-dag-processor -- ls /opt/airflow/dags

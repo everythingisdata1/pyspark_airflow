@@ -4,23 +4,60 @@ metadata:
   name: airflow-dags-pv
 spec:
   capacity:
-    storage: 4Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
+  storageClassName: ""
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: airflow-dags-local
+  volumeMode: Filesystem
   hostPath:
-    path: /mnt/airflow-data
+    path: /mnt/airflow/dags
+    type: DirectoryOrCreate
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: airflow-dags-pvc
-  namespace: airflow
+  name: airflow-logs-pv
 spec:
+  capacity:
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
-  storageClassName: airflow-dags-local
-  resources:
-    requests:
-      storage: 4Gi
+  storageClassName: ""
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/airflow/logs
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: airflow-config-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/airflow/config
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: airflow-plugins-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/airflow/plugins
+    type: DirectoryOrCreate
