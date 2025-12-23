@@ -1,0 +1,32 @@
+#executor: CeleryExecutor
+#
+airflow:
+  image:
+    repository: apache/airflow
+    tag: 3.1.5
+#
+#postgresql:
+#  enabled: true
+#  auth:
+#    username: airflow
+#    password: airflow
+#    database: airflow
+#
+#redis:
+#  enabled: true
+#
+#webserver:
+#  service:
+#    type: ClusterIP
+#
+#scheduler:
+#  replicas: 1
+#
+#workers:
+#  replicas: 2
+#
+#triggerer:
+#  enabled: true
+#
+#flower:
+#  enabled: true

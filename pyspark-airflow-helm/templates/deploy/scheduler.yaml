@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-scheduler
+  namespace: airflow
+  labels:
+    app: airflow-scheduler
+    component: scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow-scheduler
+      component: scheduler
+  template:
+    metadata:
+      labels:
+        app: airflow-scheduler
+        component: scheduler
+    spec:
+      containers:
+        - name: scheduler
+          image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}
+          command:
+            - bash
+            - -c
+            - "exec airflow scheduler"
+          envFrom:
+            - configMapRef:
+                name: airflow-config

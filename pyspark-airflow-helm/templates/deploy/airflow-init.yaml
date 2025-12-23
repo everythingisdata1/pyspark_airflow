@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: airflow-db-init
+  namespace: airflow
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      securityContext:
+        fsGroup: 50000
+      containers:
+        - name: airflow-db-init
+          image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}
+          command:
+            - bash
+            - -c
+            - |
+              set -e
+              echo "Waiting for Postgres..."
+              until pg_isready -h postgres -p 5432 -U airflow; do
+                sleep 5
+              done
+
+              echo "Running migrations..."
+              airflow db migrate
+
+              echo "Creating admin user..."
+              airflow users create \
+                --username airflow \
+                --password airflow \
+                --firstname Admin \
+                --lastname User \
+                --role Admin \
+                --email admin@example.com || true
+
+              echo "Airflow DB init done"
+          envFrom:
+            - configMapRef:
+                name: airflow-config

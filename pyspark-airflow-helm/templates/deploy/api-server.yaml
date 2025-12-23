@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-api-server
+  namespace: airflow
+  labels:
+    app: airflow-api-server
+    component: apiserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow-api-server
+      component: apiserver
+  template:
+    metadata:
+      labels:
+        app: airflow-api-server
+        component: apiserver
+    spec:
+      securityContext:
+        fsGroup: 50000   # REQUIRED for Airflow file permissions
+
+      containers:
+        - name: airflow-apiserver
+          image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}
+          command:
+            - bash
+            - -c
+            - "exec airflow api-server"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: airflow-config
+
+          livenessProbe:
+            httpGet:
+              path: /api/v2/version
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          readinessProbe:
+            httpGet:
+              path: /api/v2/version
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10

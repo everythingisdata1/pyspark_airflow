@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: airflow-dags-pv
+spec:
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: airflow-dags-local
+  hostPath:
+    path: /mnt/airflow-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: airflow-dags-pvc
+  namespace: airflow
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: airflow-dags-local
+  resources:
+    requests:
+      storage: 4Gi

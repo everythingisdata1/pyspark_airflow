@@ -1,0 +1,6 @@
+[project]
+name = "airflow-pysaprk"
+version = "0.1.0"
+description = "Airflow integration with PySpark,MinIo,Minikubeō"
+requires-python = ">=3.12"
+dependencies = []

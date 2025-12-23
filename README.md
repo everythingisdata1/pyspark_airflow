@@ -53,3 +53,27 @@ PySpark job structure
 Spark configuration for Kubernetes
 Dockerfile setup for each job
 Airflow DAG definition for orchestration and dependency management
+
+
+# Minikube Setup
+1. Install Minikube and start a local Kubernetes cluster:
+2. minikube start --driver=docker
+3. Enable the ingress addon:
+4. minikube addons enable ingress
+5. Set up MinIO in Minikube for S3-compatible storage:
+6. kubectl apply -f https://raw.githubusercontent.com/minio/minio-operator/master/minio-operator.yaml
+7. Create a MinIO instance and access credentials.
+8. kubectl apply -f minio-instance.yaml
+9. Access MinIO dashboard via port forwarding or ingress.
+10. kubectl port-forward svc/minio 9000:9000
+11. Use the MinIO web interface to create a bucket for employee data.
+12. Upload sample employee data to the MinIO bucket.
+13. mc alias set localminio http://localhost:9000 minioadmin minioadmin
+14. mc mb localminio/employee-data
+15. mc cp employee_data.csv localminio/employee-data/
+16. # PySpark Job Structure
+    
+
+    minikube service airflow-webserver -n airflow --url
+    minikube mount D:\pySaprk\airflow-data:/mnt/airflow-data
+    kubectl create namespace airflow
