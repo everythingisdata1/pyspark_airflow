@@ -18,6 +18,7 @@ spec:
         app: airflow-scheduler
         component: scheduler
     spec:
+      serviceAccountName: airflow
       securityContext:
         runAsUser: 50000
         fsGroup: 50000
@@ -27,10 +28,10 @@ spec:
       containers:
         - name: scheduler
           image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}
-          command:
-            - bash
-            - -c
-            - "exec airflow scheduler"
+          command: [ "bash", "-c", "exec airflow scheduler" ]
+          ports:
+              - name: log
+                containerPort: 8793
           envFrom:
             - configMapRef:
                 name: airflow-config

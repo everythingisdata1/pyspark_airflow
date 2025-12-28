@@ -13,11 +13,12 @@ spec:
       labels:
         app: postgres
     spec:
+      serviceAccountName: airflow
       containers:
         - name: postgres
           image: postgres:13
           ports:
-            - containerPort: 5432
+              - containerPort: 5432
           env:
             - name: POSTGRES_USER
               value: airflow
@@ -30,7 +31,6 @@ spec:
               port: 5432
             initialDelaySeconds: 10
             periodSeconds: 5
-
           livenessProbe:
             tcpSocket:
               port: 5432

@@ -18,6 +18,7 @@ spec:
         app: airflow-api-server
         component: apiserver
     spec:
+      serviceAccountName: airflow
       volumes:
         {{- include "airflow.dags.volume" . | nindent 8 }}
         {{- include "airflow.logs.volume" . | nindent 8 }}

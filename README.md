@@ -80,3 +80,7 @@ Airflow DAG definition for orchestration and dependency management
 
 # List of DAGS
     kubectl exec -n airflow deploy/airflow-dag-processor -- ls /opt/airflow/dags
+
+
+# Port Forwarding Airflow UI
+    kubectl -n airflow port-forward -n airflow svc/airflow-api-server 8080:8080

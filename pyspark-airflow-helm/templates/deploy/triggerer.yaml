@@ -18,6 +18,7 @@ spec:
         app: airflow-triggerer
         component: triggerer
     spec:
+      serviceAccountName: airflow
       securityContext:
         runAsUser: 50000
         fsGroup: 50000

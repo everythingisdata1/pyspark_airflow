@@ -7,6 +7,7 @@ data:
   AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
   AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
   AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+  AIRFLOW__KUBERNETES_EXECUTOR__SERVICE_ACCOUNT_NAME: airflow
   AIRFLOW__CORE__LOAD_EXAMPLES: "false"
   AIRFLOW__CORE__FERNET_KEY: ""
   AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
@@ -21,3 +22,6 @@ data:
   AIRFLOW__LOGGING__WORKER_LOG_SERVER_HOST: airflow-scheduler.airflow.svc.cluster.local
   AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
   AIRFLOW__DAG_PROCESSOR__REFRESH_INTERVAL: "120"
+
+
+
