@@ -25,31 +25,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: airflow-config-pvc
-  namespace: airflow
-spec:
-  storageClassName: ""
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: airflow-plugins-pvc
-  namespace: airflow
-spec:
-  storageClassName: ""
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
+

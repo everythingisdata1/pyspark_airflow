@@ -25,23 +25,19 @@ spec:
       volumes:
         {{- include "airflow.dags.volume" . | nindent 8 }}
         {{- include "airflow.logs.volume" . | nindent 8 }}
-
-        - name: dags-config
-          configMap:
-            name: celery-dag
       containers:
           - name: dag-processor
             image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}
             command:
               - bash
               - -c
-              - "exec airflow dag-processor"
+              - "exec airflow dag-processor
+              mkdir -p /opt/airflow/logs/dag_processor &&
+              chown -R 50000:50000 /opt/airflow/logs &&
+              chmod -R 775 /opt/airflow/logs"
             envFrom:
               - configMapRef:
                   name: airflow-config
             volumeMounts:
                   {{- include "airflow.dags.volumeMount" . | nindent 12 }}
                   {{- include "airflow.logs.volumeMount" . | nindent 12 }}
-            - name: dags-config
-              mountPath: /opt/airflow/dags/celery_dag.py
-              subPath: celery_dag.py

@@ -23,8 +23,8 @@ spec:
         {{- include "airflow.dags.volume" . | nindent 8 }}
         {{- include "airflow.logs.volume" . | nindent 8 }}
       securityContext:
-        fsGroup: 50000   # REQUIRED for Airflow file permissions
-
+        runAsUser: 50000
+        fsGroup: 50000
       containers:
         - name: airflow-apiserver
           image: {{ .Values.airflow.image.repository }}:{{ .Values.airflow.image.tag }}

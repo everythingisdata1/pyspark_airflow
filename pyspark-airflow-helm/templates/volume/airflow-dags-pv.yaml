@@ -29,35 +29,5 @@ spec:
   hostPath:
     path: /mnt/airflow/logs
     type: DirectoryOrCreate
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: airflow-config-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  storageClassName: ""
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
-  hostPath:
-    path: /mnt/airflow/config
-    type: DirectoryOrCreate
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: airflow-plugins-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  storageClassName: ""
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
-  hostPath:
-    path: /mnt/airflow/plugins
-    type: DirectoryOrCreate
+
+
